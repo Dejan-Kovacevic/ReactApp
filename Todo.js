@@ -1,11 +1,23 @@
 import React from "react";
 
-const Todo = ({ todo }) => {
+function Todo({ todo, onToggleTodo, onDeleteTodo }) {
   return (
-    <div>
-      <p>{todo.text}</p>
-    </div>
+    <li className="todo-item">
+      <label className="todo-label">
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => onToggleTodo(todo.id)}
+        />
+        <span className={todo.completed ? "todo-text done" : "todo-text"}>
+          {todo.title}
+        </span>
+      </label>
+      <button className="todo-delete-button" onClick={() => onDeleteTodo(todo.id)} type="button">
+        Löschen
+      </button>
+    </li>
   );
-};
+}
 
 export default Todo;

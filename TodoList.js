@@ -1,30 +1,22 @@
-import React, { useState } from "react";
-import TodoForm from "./TodoForm";
+import React from "react";
 import Todo from "./Todo";
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-
-  const addTodo = (todo) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    const newTodos = [todo, ...todos];
-    setTodos(newTodos);
-    console.log("todos: ", ...todos);
-  };
+function TodoList({ todos, onToggleTodo, onDeleteTodo }) {
+  if (todos.length === 0) {
+    return <p className="todo-empty">Keine Aufgaben vorhanden.</p>;
+  }
 
   return (
-    <div>
-      <h1>Whats the plan for Today?</h1>
-      <TodoForm onSubmit={(todo) => addTodo(todo)} />
-      <div>
-        {todos.map((todo) => (
-          <Todo todo={todo} key={todo.id} />
-        ))}
-      </div>
-    </div>
+    <ul className="todo-list">
+      {todos.map((todo) => (
+        <Todo
+          key={todo.id}
+          todo={todo}
+          onToggleTodo={onToggleTodo}
+          onDeleteTodo={onDeleteTodo}
+        />
+      ))}
+    </ul>
   );
 }
 
